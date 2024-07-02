@@ -3,8 +3,6 @@ require("dotenv").config();
 const conn = require("./db/conn");
 const express = require("express");
 const exphbs = require("express-handlebars");
-
-
 const Usuario = require("./models/Usuario");
 const Cartao = require("./models/Cartao");
 const Jogo = require("./models/Jogo");
@@ -124,14 +122,13 @@ app.get("/jogos/:id/update", async (req, res) => {
 app.post("/jogos/:id/update", async (req, res) =>{
   const id = parseInt(req.params.id);
   const dadosJogos = {
-    
       nome: req.body.nome,
       valorJogo: req.body.valorJogo,
       descricaoJogo: req.body.descricaoJogo,
   };
 
   const retorno = await Jogo.update(dadosJogos, { where: { id: id }});
-  console.log(retorno)
+
   if(retorno>0){
       res.redirect("/jogos");
   } else {
