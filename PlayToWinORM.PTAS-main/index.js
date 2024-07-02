@@ -198,7 +198,7 @@ app.post("/usuarios/:id/novoCartao", async (req, res) => {
 ///fazer conquista agr
 
 //Ver conquista do jogo
-app.get("/jogo/:id/conquista", async (req, res) => {
+app.get("/jogos/:id/conquista", async (req, res) => {
   const id = parseInt(req.params.id);
   const jogo = await Jogo.findByPk(id, { raw: true });
 
@@ -211,7 +211,7 @@ app.get("/jogo/:id/conquista", async (req, res) => {
 });
 
 //Formulário de cadastro de conquista
-app.get("/jogo/:id/novaConquista", async (req, res) => {
+app.get("/jogos/:id/novaConquista", async (req, res) => {
   const id = parseInt(req.params.id);
   const jogo = await Jogo.findByPk(id, { raw: true });
 
@@ -219,7 +219,7 @@ app.get("/jogo/:id/novaConquista", async (req, res) => {
 });
 
 //Cadastro de conquista
-app.post("/jogo/:id/novaConquista", async (req, res) => {
+app.post("/jogos/:id/novaConquista", async (req, res) => {
   const id = parseInt(req.params.id);
 
   const dadosConquista = {
