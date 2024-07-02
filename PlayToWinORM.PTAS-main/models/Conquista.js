@@ -2,7 +2,7 @@
 
 const db = require("../db/conn");
 const { DataTypes } = require("sequelize");
-const Usuario = require("../models/Jogo");
+const Jogo = require("../models/Jogo");
 
 const Conquista = db.define(
   "Conquista",
