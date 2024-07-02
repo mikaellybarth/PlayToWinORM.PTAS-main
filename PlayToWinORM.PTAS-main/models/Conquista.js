@@ -4,11 +4,11 @@ const db = require("../db/conn");
 const { DataTypes } = require("sequelize");
 const Usuario = require("../models/Jogo");
 
-const Cartao = db.define(
+const Conquista = db.define(
   "Conquista",
   {
     titulo: {
-      type: DataTypes.STRING(16),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     descricao: {

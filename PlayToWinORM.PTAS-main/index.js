@@ -8,6 +8,7 @@ const exphbs = require("express-handlebars");
 const Usuario = require("./models/Usuario");
 const Cartao = require("./models/Cartao");
 const Jogo = require("./models/Jogo");
+const Conquista = require ("./models/Conquista");
 
 Jogo.belongsToMany(Usuario, { through: "aquisicoes" });
 Usuario.belongsToMany(Jogo, { through: "aquisicoes" });
@@ -194,7 +195,46 @@ app.post("/usuarios/:id/novoCartao", async (req, res) => {
 
   res.redirect(`/usuarios/${id}/cartoes`);
 });
+///fazer conquista agr
 
+//Ver conquista do jogo
+app.get("/jogo/:id/conquista", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const jogo = await Jogo.findByPk(id, { raw: true });
+
+  const conquista = await Conquista.findAll({
+    raw: true,
+    where: { JogoId: id },
+  });
+
+  res.render("conquista.handlebars", { jogo, conquista });
+});
+
+//Formulário de cadastro de conquista
+app.get("/jogo/:id/novaConquista", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const jogo = await Jogo.findByPk(id, { raw: true });
+
+  res.render("formConquista", { jogo });
+});
+
+//Cadastro de conquista
+app.post("/jogo/:id/novaConquista", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  const dadosConquista = {
+    titulo: req.body.titulo,
+    descricao: req.body.descricao,
+    UsuarioId: id,
+  };
+
+  await Conquista.create(dadosConquista);
+
+  res.redirect(`/jogos/${id}/conquista`);
+});
+
+
+///
 app.listen(8000, () => {
   console.log("Server rodando!");
 });
@@ -211,11 +251,3 @@ conn
   console.log("Ocorreu um erro:" + err);
 });
 
-// conn
-//   .authenticate()
-//   .then(() => {
-//     console.log("Conectado ao banco de dados com sucesso!");
-//   })
-//   .catch((err) => {
-//     console.log("Ocorreu um erro: " + err);
-//   });
