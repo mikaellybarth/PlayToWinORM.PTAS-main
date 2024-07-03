@@ -208,7 +208,7 @@ app.get("/jogos/:id/conquista", async (req, res) => {
 });
 
 //Formulário de cadastro de conquista
-app.get("/jogos/:id/novaConquista", async (req, res) => {
+app.get("/jogo/:id/novoConquista", async (req, res) => {
   const id = parseInt(req.params.id);
   const jogo = await Jogo.findByPk(id, { raw: true });
 
@@ -216,13 +216,13 @@ app.get("/jogos/:id/novaConquista", async (req, res) => {
 });
 
 //Cadastro de conquista
-app.post("/jogos/:id/novaConquista", async (req, res) => {
+app.post("/jogos/:id/novoConquista", async (req, res) => {
   const id = parseInt(req.params.id);
 
   const dadosConquista = {
     titulo: req.body.titulo,
     descricao: req.body.descricao,
-    UsuarioId: id,
+    JogoId: id,
   };
 
   await Conquista.create(dadosConquista);
@@ -231,10 +231,8 @@ app.post("/jogos/:id/novaConquista", async (req, res) => {
 });
 
 
-///
-app.listen(8000, () => {
-  console.log("Server rodando!");
-});
+
+
 
 app.listen(8000, () =>{
   console.log("Server rodando na porta 8000!")
